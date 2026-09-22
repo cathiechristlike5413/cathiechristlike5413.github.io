@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
+    "dev": "node scripts/sanitize-content.mjs && astro dev",
+    "build": "node scripts/sanitize-content.mjs && astro build",
+    "preview": "astro preview",
+    "sanitize": "node scripts/sanitize-content.mjs"
   },
   "dependencies": {
     "astro": "^5.13.5"

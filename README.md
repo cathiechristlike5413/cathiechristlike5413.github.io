@@ -1,4 +1,4 @@
-# 给迷惑期的求职，毕业与享受生活
+# 求职，毕业与享受生活
 
 一套基于 Astro 的个人博客模板：免费部署、Markdown 写作、支持归档、标签、搜索、RSS 和深色模式。
 
@@ -39,6 +39,24 @@ pnpm build
 
 后台配置保存在根目录的 `.pages.yml`，网站基础信息保存在 `src/data/site.json`，上传的图片会保存到 `public/images`。
 
+## 内容排版保护
+
+Pages CMS 的富文本表格编辑器在部分浏览器中按回车时，可能会写入不可见控制字符 `U+001F`。这个字符在网页上通常显示为方框，导致正文出现“多余符号”。
+
+项目包含 `scripts/sanitize-content.mjs`，会自动清理以下异常字符：
+
+- 非法控制字符，例如 `U+001F`
+- 零宽空格 `U+200B`
+- Unicode 替换字符 `U+FFFC`、`U+FFFD`
+- BOM 和单词连接符 `U+FEFF`、`U+2060`
+
+`pnpm dev` 和 `pnpm build` 都会在运行前自动执行清理。也可以手动执行：
+
+```bash
+pnpm sanitize
+```
+
+该脚本会检查 `src/content`、`src/data` 和 `.pages.yml`，避免从 Pages CMS 保存的隐藏字符进入最终网站。
 ## 第一步：改成你自己的信息
 
 除了使用 Pages CMS，也可以手动修改 `src/data/site.json`：
@@ -166,6 +184,7 @@ blog.example.com
 - Open Graph / SEO 基础信息
 - GitHub Pages 自动构建与部署
 - Pages CMS 可视化文章和网站设置管理
+
 
 
 
