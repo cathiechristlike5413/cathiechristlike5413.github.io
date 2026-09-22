@@ -58,7 +58,8 @@ content:
           rename: safe
       - name: heroImageAlt
         label: 头图说明
-        type: string      - name: nav
+        type: string
+      - name: nav
         label: 导航菜单
         type: object
         list:
@@ -157,4 +158,5 @@ content:
           path: public/images/blog
           rename: safe
           switcher: true
+
 
