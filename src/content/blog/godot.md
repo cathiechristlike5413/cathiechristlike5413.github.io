@@ -8,7 +8,7 @@ tags:
   - 游戏引擎
   - Godot
   - 类幸存者游戏场景搭建
-  - 游戏数值
+  - 游戏数值设计
 featured: true
 draft: false
 cover: /images/covers/geminigeneratedimageffdsikffdsikffds.jpg
