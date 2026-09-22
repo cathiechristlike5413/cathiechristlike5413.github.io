@@ -98,8 +98,11 @@ content:
     filename: "{primary}.md"
     view:
       primary: title
-      sort: pubDate
-      order: desc
+      sort:
+        - pubDate
+      default:
+        sort: pubDate
+        order: desc
     fields:
       - name: title
         label: 文章标题
@@ -158,5 +161,7 @@ content:
           path: public/images/blog
           rename: safe
           switcher: true
+
+
 
 
