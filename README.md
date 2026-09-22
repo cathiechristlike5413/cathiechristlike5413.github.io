@@ -41,22 +41,23 @@ pnpm build
 
 ## 内容排版保护
 
-Pages CMS 的富文本表格编辑器在部分浏览器中按回车时，可能会写入不可见控制字符 `U+001F`。这个字符在网页上通常显示为方框，导致正文出现“多余符号”。
+Pages CMS 的富文本表格编辑器在部分浏览器中按回车时，可能会写入不可见控制字符 `U+001F`。这个字符在网页上通常会显示为方框，但它实际携带的是换行语义。
 
-项目包含 `scripts/sanitize-content.mjs`，会自动清理以下异常字符：
+项目包含 `scripts/sanitize-content.mjs`，处理规则如下：
 
-- 非法控制字符，例如 `U+001F`
-- 零宽空格 `U+200B`
-- Unicode 替换字符 `U+FFFC`、`U+FFFD`
-- BOM 和单词连接符 `U+FEFF`、`U+2060`
+- 将 `U+001F` 转换为 `<br>`，保留编辑器中输入的换行；
+- 删除零宽空格 `U+200B`；
+- 删除 Unicode 替换字符 `U+FFFC`、`U+FFFD`；
+- 删除 BOM 和单词连接符 `U+FEFF`、`U+2060`。
 
-`pnpm dev` 和 `pnpm build` 都会在运行前自动执行清理。也可以手动执行：
+`pnpm dev` 和 `pnpm build` 都会在运行前自动执行处理。也可以手动执行：
 
 ```bash
 pnpm sanitize
 ```
 
-该脚本会检查 `src/content`、`src/data` 和 `.pages.yml`，避免从 Pages CMS 保存的隐藏字符进入最终网站。
+该脚本会检查 `src/content`、`src/data` 和 `.pages.yml`，既避免隐藏字符进入最终网站，也不会牺牲编辑器中的换行效果。
+
 ## 第一步：改成你自己的信息
 
 除了使用 Pages CMS，也可以手动修改 `src/data/site.json`：
@@ -184,6 +185,7 @@ blog.example.com
 - Open Graph / SEO 基础信息
 - GitHub Pages 自动构建与部署
 - Pages CMS 可视化文章和网站设置管理
+
 
 
 
