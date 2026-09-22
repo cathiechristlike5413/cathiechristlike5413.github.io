@@ -6,16 +6,33 @@
   "tagline": "生态学学习与市场化思考",
   "location": "China",
   "email": "hello@example.com",
-  "avatar": "/avatar.svg",
+  "avatar": "/images/cgi-binmmwebwx-binwebwxgetmsgimgandmsgid5395619269668144857andskeycryptda5874bbeec1ee971acdb8c8abcbe16bdb7734fandmmwebappidwxwebfilehelper-1-1.jpg",
   "nav": [
-    { "label": "首页", "href": "/" },
-    { "label": "文章", "href": "/archive/" },
-    { "label": "标签", "href": "/tags/" },
-    { "label": "关于", "href": "/about/" }
+    {
+      "label": "首页",
+      "href": "/"
+    },
+    {
+      "label": "文章",
+      "href": "/archive/"
+    },
+    {
+      "label": "标签",
+      "href": "/tags/"
+    },
+    {
+      "label": "关于",
+      "href": "/about/"
+    }
   ],
   "social": [
-    { "label": "GitHub", "href": "https://github.com/dada303312" },
-    { "label": "邮件", "href": "mailto:hello@example.com" }
+    {
+      "label": "GitHub",
+      "href": "https://github.com/dada303312"
+    },
+    {
+      "label": "邮件",
+      "href": "mailto:hello@example.com"
+    }
   ]
 }
-
