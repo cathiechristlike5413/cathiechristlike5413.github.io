@@ -1,11 +1,11 @@
 {
-  "title": "求职，毕业与享受生活",
-  "shortTitle": "我的硕士",
+  "title": "求职，毕业与享受真正的生活",
+  "shortTitle": "我的22岁后",
   "author": "达达",
   "description": "记录技术、生活与思考的个人空间。",
   "tagline": "生态学学习与市场化思考",
   "location": "China",
-  "email": "hello@example.com",
+  "email": "zhaowch23@mail2.sysu.edu.cn",
   "avatar": "/images/cgi-binmmwebwx-binwebwxgetmsgimgandmsgid5395619269668144857andskeycryptda5874bbeec1ee971acdb8c8abcbe16bdb7734fandmmwebappidwxwebfilehelper-1-1.jpg",
   "nav": [
     {
@@ -32,7 +32,7 @@
     },
     {
       "label": "邮件",
-      "href": "mailto:hello@example.com"
+      "href": "zhaowch23@mail2.sysu.edu.cn"
     }
   ]
 }
