@@ -1,0 +1,38 @@
+---
+import type { Post } from '../lib/posts';
+import { formatDate, postHref, readingTime, tagHref } from '../lib/posts';
+
+interface Props {
+  post: Post;
+  featured?: boolean;
+  index?: number;
+}
+
+const { post, featured = false, index } = Astro.props;
+---
+
+<article class:list={['post-card', { 'post-card-featured': featured }]}>
+  {featured && (
+    <div class="featured-label">
+      <span class="status-dot"></span>
+      置顶文章
+    </div>
+  )}
+  <div class="post-card-meta">
+    {index !== undefined && <span class="post-index">{String(index + 1).padStart(2, '0')}</span>}
+    <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+    <span class="meta-separator">/</span>
+    <span>{readingTime(post)} 分钟阅读</span>
+  </div>
+  <h3><a href={postHref(post)}>{post.data.title}</a></h3>
+  <p class="post-card-description">{post.data.description}</p>
+  <div class="post-card-footer">
+    <div class="tag-list compact">
+      {post.data.tags.slice(0, 3).map((tag) => <a class="tag" href={tagHref(tag)}>#{tag}</a>)}
+    </div>
+    <a class="read-more" href={postHref(post)} aria-label={`阅读《${post.data.title}》`}>
+      继续阅读
+      <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+</article>

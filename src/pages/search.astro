@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="搜索" description="搜索站内全部文章。" noindex>
+  <div class="container page-shell">
+    <header class="page-header">
+      <div>
+        <div class="eyebrow">Search</div>
+        <h1 class="page-title">寻找一篇文章</h1>
+        <p class="page-intro">输入标题、摘要或标签关键词，结果会即时出现。</p>
+      </div>
+    </header>
+
+    <div class="search-panel" data-search-root>
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+        <input class="search-input" type="search" placeholder="例如：写作、Astro、生活……" autocomplete="off" data-search-input />
+      </div>
+      <div class="search-summary" data-search-summary>输入关键词开始搜索</div>
+      <div class="search-results" data-search-results></div>
+    </div>
+  </div>
+
+  <script is:inline>
+    const input = document.querySelector('[data-search-input]');
+    const results = document.querySelector('[data-search-results]');
+    const summary = document.querySelector('[data-search-summary]');
+    let posts = [];
+
+    fetch('/search.json')
+      .then((response) => response.json())
+      .then((data) => { posts = data; })
+      .catch(() => { summary.textContent = '搜索索引加载失败，请刷新页面重试。'; });
+
+    function escapeHtml(value) {
+      const div = document.createElement('div');
+      div.textContent = value;
+      return div.innerHTML;
+    }
+
+    function renderSearch(keyword) {
+      const query = keyword.trim().toLowerCase();
+      if (!query) {
+        summary.textContent = '输入关键词开始搜索';
+        results.innerHTML = '';
+        return;
+      }
+
+      const matches = posts.filter((post) => {
+        const source = [post.title, post.description, post.tags.join(' ')].join(' ').toLowerCase();
+        return source.includes(query);
+      });
+
+      summary.textContent = `找到 ${matches.length} 篇相关文章`;
+      if (!matches.length) {
+        results.innerHTML = '<div class="search-empty">没有找到匹配内容，换个关键词试试。</div>';
+        return;
+      }
+
+      results.innerHTML = matches.map((post) => `
+        <a class="search-result" href="${post.url}">
+          <time>${escapeHtml(post.date)}</time>
+          <h2>${escapeHtml(post.title)}</h2>
+          <p>${escapeHtml(post.description)}</p>
+        </a>
+      `).join('');
+    }
+
+    input?.addEventListener('input', (event) => renderSearch(event.target.value));
+  </script>
+</BaseLayout>

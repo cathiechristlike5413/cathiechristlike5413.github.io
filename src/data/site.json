@@ -1,0 +1,21 @@
+{
+  "title": "求职，毕业与享受生活",
+  "shortTitle": "我的硕士",
+  "author": "达达",
+  "description": "记录技术、生活与思考的个人空间。",
+  "tagline": "生态学学习与市场化思考",
+  "location": "China",
+  "email": "hello@example.com",
+  "avatar": "/avatar.svg",
+  "nav": [
+    { "label": "首页", "href": "/" },
+    { "label": "文章", "href": "/archive/" },
+    { "label": "标签", "href": "/tags/" },
+    { "label": "关于", "href": "/about/" }
+  ],
+  "social": [
+    { "label": "GitHub", "href": "https://github.com/dada303312" },
+    { "label": "邮件", "href": "mailto:hello@example.com" }
+  ]
+}
+

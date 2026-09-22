@@ -1,0 +1,21 @@
+---
+import { SITE } from '../config';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <a class="footer-brand" href="/">{SITE.title}</a>
+      <p>{SITE.tagline}</p>
+    </div>
+    <div class="footer-links">
+      {SITE.social.map((item) => <a href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">{item.label}</a>)}
+      <a href="/rss.xml">RSS</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© {year} {SITE.author}</span>
+    <span>用文字对抗遗忘</span>
+  </div>
+</footer>

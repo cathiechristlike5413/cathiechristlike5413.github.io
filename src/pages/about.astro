@@ -1,0 +1,54 @@
+---
+import { SITE } from '../config';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="关于我" description={`关于 ${SITE.author} 和这个博客。`}>
+  <div class="container page-shell">
+    <header class="page-header">
+      <div>
+        <div class="eyebrow">About</div>
+        <h1 class="page-title">你好，很高兴认识你。</h1>
+        <p class="page-intro">一个持续学习、偶尔困惑、认真记录的人。</p>
+      </div>
+    </header>
+
+    <div class="about-grid">
+      <div>
+        <div class="prose">
+          <p>我是 <strong>{SITE.author}</strong>，这个博客是我在互联网上的一个小房间。这里没有固定的主题边界，主要写下技术实践、阅读所得，以及日常生活里那些不愿被时间轻易带走的片段。</p>
+          <p>我相信写作是一种思考工具。把模糊的感受变成清晰的句子，把零散的经验整理成可复用的方法，也把此刻的困惑诚实地留给未来的自己。</p>
+          <h2>我正在做什么</h2>
+          <p>持续学习，保持好奇，尝试把复杂的事情讲简单。也希望这些公开的文字，能给偶然路过的你带来一点启发、一点陪伴，或者只是一种“原来不止我这样想”的安心。</p>
+          <h2>关于这个博客</h2>
+          <p>网站使用 Astro 构建，内容以 Markdown 保存，通过 GitHub Pages 免费发布。没有广告，不做追踪，支持深色模式与 RSS 订阅。</p>
+          <h2>联系我</h2>
+          <p>如果你想交流文章中的观点，或者只是想打个招呼，可以给我发邮件，也可以在 GitHub 上找到我。</p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <time>现在</time>
+            <h3>继续写作，继续学习</h3>
+            <p>保持稳定的输入与输出，把这个博客慢慢养成一份长期作品。</p>
+          </div>
+          <div class="timeline-item">
+            <time>起点</time>
+            <h3>创建了这个网站</h3>
+            <p>从第一篇文章开始，为自己的思考留下一处不受算法打扰的栖息地。</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="about-sidebar">
+        <img class="about-avatar" src={SITE.avatar} alt={`${SITE.author} 的头像`} width="86" height="86" />
+        <h2>{SITE.author}</h2>
+        <p>{SITE.tagline}</p>
+        <div class="about-links">
+          {SITE.social.map((item) => <a href={item.href}><span>{item.label}</span><span aria-hidden="true">↗</span></a>)}
+          <a href="/rss.xml"><span>RSS 订阅</span><span aria-hidden="true">↗</span></a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

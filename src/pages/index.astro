@@ -1,0 +1,83 @@
+---
+import PostCard from '../components/PostCard.astro';
+import { SITE } from '../config';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { allTags, formatDate, getPublishedPosts, postHref, readingTime } from '../lib/posts';
+
+const posts = await getPublishedPosts();
+const featured = posts.find((post) => post.data.featured);
+const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 4);
+const tags = allTags(posts);
+const firstYear = posts.length ? Math.min(...posts.map((post) => post.data.pubDate.getFullYear())) : new Date().getFullYear();
+const currentYear = new Date().getFullYear();
+---
+
+<BaseLayout>
+  <section class="hero container">
+    <div>
+      <div class="eyebrow">Personal notes & stories</div>
+      <h1 class="hero-title">
+        记录，是给未来的<span class="accent-word">回信</span>。
+      </h1>
+      <p class="hero-copy">
+        你好，我是 {SITE.author}。这里收藏技术探索、阅读笔记与生活里值得反复想起的瞬间。愿每一篇文字，都能让复杂变得清晰，让平凡留下回声。
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="/archive/">开始阅读 <span aria-hidden="true">→</span></a>
+        <a class="button button-secondary" href="/about/">关于我</a>
+      </div>
+    </div>
+
+    <aside class="profile-card" aria-label="作者简介">
+      <img class="profile-avatar" src={SITE.avatar} alt={`${SITE.author} 的头像`} width="112" height="112" />
+      <div class="profile-name">{SITE.author}</div>
+      <div class="profile-role">Writer · Learner · Builder</div>
+      <p class="profile-bio">{SITE.description} 写作不是为了证明知道什么，而是为了看清自己正在成为谁。</p>
+      <div class="profile-meta">
+        <div class="profile-stat"><strong>{posts.length}</strong><span>篇文章</span></div>
+        <div class="profile-stat"><strong>{tags.length}</strong><span>个主题</span></div>
+        <div class="profile-stat"><strong>{firstYear}</strong><span>写作起点</span></div>
+        <div class="profile-stat"><strong>{currentYear - firstYear || 1}</strong><span>年记录</span></div>
+      </div>
+    </aside>
+  </section>
+
+  {featured && (
+    <section class="featured-wrap container" aria-labelledby="featured-heading">
+      <div class="section-heading-row">
+        <h2 class="section-heading" id="featured-heading">本期推荐</h2>
+        <a class="section-link" href="/archive/">全部文章</a>
+      </div>
+      <PostCard post={featured} featured />
+    </section>
+  )}
+
+  <section class="latest-wrap container" aria-labelledby="latest-heading">
+    <div class="section-heading-row">
+      <h2 class="section-heading" id="latest-heading">最近更新</h2>
+      <a class="section-link" href="/archive/">浏览归档</a>
+    </div>
+    <div class="post-list">
+      {latest.map((post) => (
+        <article class="post-list-item">
+          <time class="post-list-date" datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+          <div>
+            <h3><a href={postHref(post)}>{post.data.title}</a></h3>
+            <p>{post.data.description}</p>
+          </div>
+          <a class="list-arrow" href={postHref(post)} aria-label={`阅读《${post.data.title}》，${readingTime(post)} 分钟`}>↗</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="topic-panel container">
+    <div>
+      <h2>沿着兴趣，慢慢走。</h2>
+      <p>这些标签像一条条小径，串起我在不同阶段的提问与答案。</p>
+    </div>
+    <div class="topic-cloud">
+      {tags.map((tag) => <a class="tag" href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}/`}>#{tag}</a>)}
+    </div>
+  </section>
+</BaseLayout>

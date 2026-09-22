@@ -1,0 +1,50 @@
+---
+import { SITE } from '../config';
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+};
+---
+
+<header class="site-header" data-site-header>
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label={`${SITE.title} 首页`}>
+      <span class="brand-mark" aria-hidden="true">{SITE.shortTitle.charAt(0)}</span>
+      <span class="brand-name">{SITE.shortTitle}</span>
+    </a>
+
+    <nav class="site-nav" data-site-nav aria-label="主导航">
+      {SITE.nav.map((item) => (
+        <a class:list={['nav-link', { active: isActive(item.href) }]} href={item.href}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="header-actions">
+      <a class="icon-button search-button" href="/search/" aria-label="搜索文章">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-4-4"></path>
+        </svg>
+      </a>
+      <button class="icon-button theme-toggle" type="button" data-theme-toggle aria-label="切换深浅色模式">
+        <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path>
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.5 14.4A8.5 8.5 0 0 1 9.6 3.5 8.5 8.5 0 1 0 20.5 14.4Z"></path>
+        </svg>
+      </button>
+      <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-label="打开菜单" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+

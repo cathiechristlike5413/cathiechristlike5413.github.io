@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { allTags, getPublishedPosts, tagHref } from '../../lib/posts';
+
+const posts = await getPublishedPosts();
+const tags = allTags(posts);
+const countFor = (tag: string) => posts.filter((post) => post.data.tags.includes(tag)).length;
+---
+
+<BaseLayout title="文章标签" description="通过主题标签浏览文章。">
+  <div class="container page-shell">
+    <header class="page-header">
+      <div>
+        <div class="eyebrow">Topics</div>
+        <h1 class="page-title">标签与主题</h1>
+        <p class="page-intro">从一个关键词出发，找到彼此关联的阅读线索。</p>
+      </div>
+      <span class="button button-secondary">{tags.length} 个标签</span>
+    </header>
+
+    <div class="tag-overview">
+      {tags.map((tag) => (
+        <a class="tag-card" href={tagHref(tag)}>
+          <div>
+            <strong>#{tag}</strong>
+            <span>浏览该主题下的文章</span>
+          </div>
+          <span class="tag-count">{countFor(tag)}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+

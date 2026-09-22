@@ -1,0 +1,67 @@
+---
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE } from '../config';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = SITE.description,
+  image = SITE.avatar,
+  type = 'website',
+  noindex = false,
+} = Astro.props;
+
+const pageTitle = title ? `${title} · ${SITE.title}` : `${SITE.title} · ${SITE.tagline}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#f6f3ed" />
+    <meta name="description" content={description} />
+    <meta name="author" content={SITE.author} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.title} RSS`} href="/rss.xml" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <title>{pageTitle}</title>
+    <script is:inline>
+      (() => {
+        const saved = localStorage.getItem('theme');
+        const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = saved || preferred;
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到正文</a>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+    <script src="/app.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,150 @@
+media:
+  - name: images
+    label: 图片库
+    input: public/images
+    output: /images
+    rename: safe
+    categories: [image]
+    extensions: [png, jpg, jpeg, webp, gif, svg]
+
+content:
+  - name: site
+    label: 网站设置
+    type: file
+    path: src/data/site.json
+    format: json
+    fields:
+      - name: title
+        label: 网站标题
+        type: string
+        required: true
+        options:
+          maxlength: 60
+      - name: shortTitle
+        label: 网站简称
+        type: string
+        required: true
+        options:
+          maxlength: 20
+      - name: author
+        label: 作者名称
+        type: string
+        required: true
+      - name: description
+        label: 网站简介
+        type: text
+      - name: tagline
+        label: 首页标语
+        type: text
+      - name: location
+        label: 所在地区
+        type: string
+      - name: email
+        label: 联系邮箱
+        type: string
+      - name: avatar
+        label: 头像
+        type: image
+        options:
+          media: images
+          path: public/images
+          rename: safe
+      - name: nav
+        label: 导航菜单
+        type: object
+        list:
+          collapsible:
+            summary: "{label}"
+        fields:
+          - name: label
+            label: 显示名称
+            type: string
+            required: true
+          - name: href
+            label: 链接地址
+            type: string
+            required: true
+      - name: social
+        label: 社交链接
+        type: object
+        list:
+          collapsible:
+            summary: "{label}"
+        fields:
+          - name: label
+            label: 显示名称
+            type: string
+            required: true
+          - name: href
+            label: 链接地址
+            type: string
+            required: true
+
+  - name: posts
+    label: 博客文章
+    type: collection
+    path: src/content/blog
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: title
+      sort: pubDate
+      order: desc
+    fields:
+      - name: title
+        label: 文章标题
+        type: string
+        required: true
+        options:
+          maxlength: 120
+      - name: description
+        label: 文章摘要
+        type: text
+        required: true
+      - name: pubDate
+        label: 发布日期
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: updatedDate
+        label: 最后更新日期
+        type: date
+        default: ""
+        options:
+          format: yyyy-MM-dd
+      - name: category
+        label: 分类
+        type: string
+        default: 随笔
+      - name: tags
+        label: 标签
+        type: string
+        list: true
+      - name: featured
+        label: 首页推荐
+        type: boolean
+        default: false
+      - name: draft
+        label: 草稿
+        type: boolean
+        default: false
+      - name: cover
+        label: 封面图片
+        type: image
+        options:
+          media: images
+          path: public/images/covers
+          rename: safe
+      - name: readingTime
+        label: 阅读分钟数
+        type: number
+      - name: body
+        label: 正文
+        type: rich-text
+        options:
+          format: markdown
+          media: images
+          path: public/images/blog
+          rename: safe
+          switcher: true

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dada303312.github.io/sitemap.xml

@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatShortDate, getPublishedPosts, postHref, tagHref } from '../lib/posts';
+
+const posts = await getPublishedPosts();
+const groups = Object.entries(
+  posts.reduce<Record<string, typeof posts>>((result, post) => {
+    const year = String(post.data.pubDate.getFullYear());
+    result[year] ||= [];
+    result[year].push(post);
+    return result;
+  }, {}),
+).sort(([a], [b]) => Number(b) - Number(a));
+---
+
+<BaseLayout title="文章归档" description="按时间浏览全部文章。">
+  <div class="container page-shell">
+    <header class="page-header">
+      <div>
+        <div class="eyebrow">Archive</div>
+        <h1 class="page-title">所有文章</h1>
+        <p class="page-intro">每一次落笔都对应一个具体的时刻。这里是完整的写作年轮，共 {posts.length} 篇文章。</p>
+      </div>
+      <a class="button button-secondary" href="/search/">搜索内容</a>
+    </header>
+
+    <div class="archive-list">
+      {groups.map(([year, yearPosts]) => (
+        <section class="archive-year">
+          <div class="year-label">{year}</div>
+          <div class="year-posts">
+            {yearPosts.map((post) => (
+              <article class="year-post">
+                <time datetime={post.data.pubDate.toISOString()}>{formatShortDate(post.data.pubDate)}</time>
+                <h3><a href={postHref(post)}>{post.data.title}</a></h3>
+                <div class="tag-list compact">
+                  {post.data.tags.slice(0, 2).map((tag) => <a class="tag" href={tagHref(tag)}>#{tag}</a>)}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
