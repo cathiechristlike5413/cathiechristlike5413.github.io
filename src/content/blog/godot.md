@@ -10,7 +10,7 @@ tags:
   - 类幸存者游戏场景搭建
   - 游戏数值
 featured: true
-draft: true
+draft: false
 cover: /images/covers/geminigeneratedimageffdsikffdsikffds.jpg
 ---
 # 电子游戏史中的游戏引擎
