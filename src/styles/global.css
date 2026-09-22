@@ -357,12 +357,76 @@ html[data-theme='dark'] .moon-icon {
 
 /* Home hero */
 .hero {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1.32fr) minmax(280px, 0.68fr);
   gap: clamp(40px, 7vw, 90px);
   align-items: center;
   min-height: 600px;
   padding: 58px 0 68px;
+}
+
+.hero-has-image {
+  overflow: hidden;
+  padding: 68px clamp(30px, 5vw, 70px);
+  margin-top: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  color: #fffaf3;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #173b38;
+}
+
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-media::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  background:
+    linear-gradient(90deg, rgba(10, 25, 24, 0.88) 0%, rgba(10, 25, 24, 0.7) 48%, rgba(10, 25, 24, 0.32) 100%),
+    linear-gradient(0deg, rgba(10, 25, 24, 0.5), transparent 55%);
+}
+
+.hero > :not(.hero-media) {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-has-image .hero-copy,
+.hero-has-image .profile-bio {
+  color: rgba(255, 250, 243, 0.78);
+}
+
+.hero-has-image .profile-card {
+  background: rgba(19, 35, 33, 0.78);
+  border-color: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(18px);
+}
+
+.hero-has-image .profile-card::before,
+.hero-has-image .profile-meta {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.hero-has-image .profile-stat span {
+  color: rgba(255, 250, 243, 0.62);
+}
+
+.hero-has-image .button-secondary {
+  color: #fffaf3;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .hero-title {
@@ -1396,6 +1460,10 @@ html[data-theme='dark'] .moon-icon {
     padding-top: 48px;
   }
 
+  .hero-has-image {
+    padding: 48px 34px 54px;
+  }
+
   .profile-card {
     max-width: 520px;
     transform: none;
@@ -1442,6 +1510,12 @@ html[data-theme='dark'] .moon-icon {
   .hero {
     gap: 38px;
     padding-top: 36px;
+  }
+
+  .hero-has-image {
+    padding: 40px 22px 46px;
+    margin-top: 12px;
+    border-radius: 22px;
   }
 
   .hero-title {
@@ -1553,3 +1627,4 @@ html[data-theme='dark'] .moon-icon {
   transform-origin: left center;
   transition: transform 80ms linear;
 }
+

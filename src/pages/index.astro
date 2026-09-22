@@ -13,7 +13,12 @@ const currentYear = new Date().getFullYear();
 ---
 
 <BaseLayout>
-  <section class="hero container">
+  <section class:list={['hero container', { 'hero-has-image': SITE.heroImage }]}>
+    {SITE.heroImage && (
+      <div class="hero-media">
+        <img src={SITE.heroImage} alt={SITE.heroImageAlt || ''} />
+      </div>
+    )}
     <div>
       <div class="eyebrow">Personal notes & stories</div>
       <h1 class="hero-title">
@@ -81,3 +86,4 @@ const currentYear = new Date().getFullYear();
     </div>
   </section>
 </BaseLayout>
+

@@ -49,7 +49,16 @@ content:
           media: images
           path: public/images
           rename: safe
-      - name: nav
+      - name: heroImage
+        label: 首页头图
+        type: image
+        options:
+          media: images
+          path: public/images
+          rename: safe
+      - name: heroImageAlt
+        label: 头图说明
+        type: string      - name: nav
         label: 导航菜单
         type: object
         list:
@@ -148,3 +157,4 @@ content:
           path: public/images/blog
           rename: safe
           switcher: true
+
